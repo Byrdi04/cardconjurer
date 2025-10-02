@@ -2,13 +2,18 @@ version: "3.8"
 
 services:
   cardconjurer:
-    # 'build: .' tells Portainer to build from the Dockerfile in the cloned repo
     build: .
     container_name: cardconjurer
     restart: unless-stopped
     networks:
       - proxy-net
-    # No 'ports' section needed, access is via NPMplus
+
+    # THIS IS THE CRITICAL FIX:
+    # This tells Docker Compose to load variables from this specific file
+    # instead of automatically looking for '.env'. By pointing to a
+    # non-existent file, we disable the feature and resolve the conflict.
+    env_file:
+      - ./.non-existent-env-file
 
 networks:
   proxy-net:
