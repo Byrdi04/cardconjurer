@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  cardconjurer:
+    # 'build: .' tells Portainer to build from the Dockerfile in the cloned repo
+    build: .
+    container_name: cardconjurer
+    restart: unless-stopped
+    networks:
+      - proxy-net
+    # No 'ports' section needed, access is via NPMplus
+
+networks:
+  proxy-net:
+    external: true
